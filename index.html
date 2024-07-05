@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<!--小K网www.xkwo.com每天更新大量免费资源提供大家学习！ -->
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8" />
+		<title>王者荣耀战力查询</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=0.9">
+		<link rel="stylesheet" type="text/css" href="css/main.css" />
+		<link href="//cdn.bootcss.com/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"
+			charset="utf-8"></script>
+	</head>
+	<body>
+
+		<div class="container" style="padding-top:20px;">
+			<div class="col-xs-12 col-sm-10 col-lg-8 center-block" style="float: none;">
+				<div class="panel panel-primary">
+					<div class="panel-heading" style="background: linear-gradient(to right,#8ae68a,#5ccdde,#b221ff);">
+						<center>
+							<font color="#000000"><b>王者荣耀战力查询</b></font>
+						</center>
+					</div>
+					<div class="panel-body">
+						<center>
+							<div class="alert alert-success">
+
+								<img class="img-circle"
+									style="border: 2px solid #1281FF; margin-left:3px; margin-right:3px;"
+									src="https://game.gtimg.cn/images/yxzj/img201606/heroimg/106/106.jpg" width="60px"
+									height="60px" alt="英雄" id="imgId">
+								<br>
+
+							</div>
+							<div class="alert alert-info" id="yxbiao">恋之微风 - 小乔</div>
+						</center>
+						<div class="input-group">
+							<span class="input-group-addon"><i class="icon-ghost"></i> 英雄全称</span>
+							<input name="yxname" class="form-control" placeholder="请输入要查询的英雄全称" id="yxname">
+						</div>
+						<br />
+						<div class="input-group">
+							<span class="input-group-addon"><i class="icon-cup"></i> 查询大区</span>
+							<!--<input name="money" class="form-control" placeholder="请输入您要查询的大区">-->
+							<select class="form-control" id="seltname">
+								<option value="aqq">安卓QQ</option>
+								<option value="awx">安卓VX</option>
+								<option value="iqq">苹果QQ</option>
+								<option value="ix">苹果VX</option>
+							</select>
+						</div>
+						<br />
+						<center>
+							<div class="alert alert-warning">输入英雄全称开始查询</div>
+							<div class="btn-group btn-group-justified" role="group" aria-label="...">
+
+								<div class="btn-group" role="group">
+									<button onclick="Startquery()" class="btn btn-danger btn-lg">开始查询</button>
+								</div>
+
+							</div>
+						</center>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-10 col-lg-8 center-block" style="float: none;">
+				<div class="panel panel-primary">
+					<div class="panel-heading" style="background: linear-gradient(to right,#b221ff,#14b7ff,#8ae68a);">
+						<center>
+							<font color="#000000"><b> 查询结果展示 </b></font>
+						</center>
+					</div>
+					<div class="table-responsive">
+						<table class="table table-striped table-condensed">
+							<thead>
+								<tr>
+									<th class="active">查询大区</th>
+									<th class="success">省级</th>
+									<th class="success">分数</th>
+									<th class="info">市级</th>
+									<th class="info">分数</th>
+									<th class="warning">区级</th>
+									<th class="warning">分数</th>
+
+								</tr>
+								<tr id="mydiv">
+									<th class="active" id="platform"></th>
+									<th class="success" id="province"></th>
+									<th class="success" id="provincePower"></th>
+									<th class="info" id="city"></th>
+									<th class="info" id="cityPower"></th>
+									<th class="warning" id="area"></th>
+									<th class="warning" id="areaPower"></th>
+								</tr>
+							</thead>
+
+						</table>
+					</div>
+				</div>
+				<center>
+					<p style="text-align:center"><br>&copy; Powered by <a href="
+            https://myweb-c3h5.onrender.com/">小玉</a>!
+					</p>
+				</center>
+			</div>
+
+			<script type="text/javascript">
+				function Startquery() {
+					var yxname = document.getElementById("yxname").value; //获取需要查询的英雄名称
+					var myselect = document.getElementById("seltname");
+					var index = myselect.selectedIndex;
+					var dqname = myselect.options[index].value; //获取到的大区名称
+					if (yxname.length == 0) {
+						alert("请输入需要查询的英雄名称")
+					} else {
+						$.getJSON("https://api.xxoo.team/hero/getHeroInfo.php?hero=" + yxname + "&type=" + dqname, function(data,
+							status) {
+							//console.log(data.data)
+							//var newdata = data.data
+							$("#platform").append(data.data.platform+"<br/>")
+							$("#province").append(data.data.province+"<br/>")
+							$("#provincePower").append(data.data.provincePower+"<br/>")
+							$("#city").append(data.data.city+"<br/>")
+							$("#cityPower").append(data.data.cityPower+"<br/>")
+							$("#area").append(data.data.area+"<br/>")
+							$("#areaPower").append(data.data.areaPower+"<br/>")
+							$("#imgId").attr('src',data.data.photo)
+							$("#yxbiao").html(data.data.alias+" - "+data.data.name)
+						})
+					}
+					//console.log(yxname)
+
+
+				}
+			</script>
+			<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?c8375f1ac141d4b69a5edf133f2cbaab";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+	</body>
+<!--小K网www.xkwo.com每天更新大量免费资源提供大家学习！ -->
+</html>
